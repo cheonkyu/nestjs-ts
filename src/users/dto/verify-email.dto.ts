@@ -1,4 +1,4 @@
-import { Token } from 'src/types/user-type';
+import { Token } from '@/types/user-type';
 import { Transform } from 'class-transformer';
 import { IsString } from 'class-validator';
 

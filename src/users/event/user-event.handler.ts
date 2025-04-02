@@ -1,6 +1,6 @@
 import { IEventHandler } from '@nestjs/cqrs';
 import { CreatedUserEvent } from './created-user.event';
-import { EmailService } from 'src/email/email.service';
+import { EmailService } from '@/email/email.service';
 
 export class UserEventHandler implements IEventHandler<CreatedUserEvent> {
   constructor(private emailService: EmailService) {}

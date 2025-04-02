@@ -1,6 +1,6 @@
 import { Transform } from 'class-transformer';
 import { IsString } from 'class-validator';
-import { Email, Password } from 'src/types/user-type';
+import { Email, Password } from '@/types/user-type';
 
 export class UserLoginDto {
   @IsString()

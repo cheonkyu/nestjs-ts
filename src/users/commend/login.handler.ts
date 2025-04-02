@@ -7,8 +7,8 @@ import {
 } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { LoginCommand } from './login.command';
-import { UserEntity } from 'src/entity/user.entity';
-import { AuthService } from 'src/auth/auth.service';
+import { UserEntity } from '@/users/entity/user.entity';
+import { AuthService } from '@/auth/auth.service';
 
 @CommandHandler(LoginCommand)
 export class LoginHandler implements ICommandHandler<LoginCommand> {

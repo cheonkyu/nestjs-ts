@@ -8,8 +8,8 @@ import {
 } from '@nestjs/common';
 import * as uuid from 'uuid';
 import { Repository } from 'typeorm';
-import { Count, Email, Id, Name, Password, Token } from 'src/types/user-type';
-import { UserEntity } from 'src/entity/user.entity';
+import { Count, Email, Id, Name, Password, Token } from '@/types/user-type';
+import { UserEntity } from '@/users/entity/user.entity';
 import { CreateUserCommand } from './create-user.command';
 import { CreatedUserEvent } from '../event/created-user.event';
 

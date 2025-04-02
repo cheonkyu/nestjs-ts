@@ -1,5 +1,5 @@
-import { DomainColumn } from 'src/helper/typeorm/DomainColumn';
-import { Count, Email, Id, Name, Password, Token } from 'src/types/user-type';
+import { DomainColumn } from '@/helper/typeorm/DomainColumn';
+import { Count, Email, Id, Name, Password, Token } from '@/types/user-type';
 import { Column, Entity, PrimaryColumn } from 'typeorm';
 
 @Entity('user')

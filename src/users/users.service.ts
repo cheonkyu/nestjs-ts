@@ -8,13 +8,13 @@ import {
 } from '@nestjs/common';
 import * as uuid from 'uuid';
 import { CreateUserDto } from './dto/create-user.dto';
-import { EmailService } from 'src/email/email.service';
-import { Count, Email, Id, Name, Password, Token } from 'src/types/user-type';
+import { EmailService } from '@/email/email.service';
+import { Count, Email, Id, Name, Password, Token } from '@/types/user-type';
 // import { InjectRepository } from '@nestjs/typeorm';
-import { UserEntity } from 'src/entity/user.entity';
+import { UserEntity } from '@/users/entity/user.entity';
 import { Repository } from 'typeorm';
 import { Transactional } from 'typeorm-transactional';
-import { AuthService } from 'src/auth/auth.service';
+import { AuthService } from '@/auth/auth.service';
 
 @Injectable()
 export class UsersService {

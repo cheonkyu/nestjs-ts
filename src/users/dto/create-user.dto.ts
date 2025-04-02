@@ -7,7 +7,7 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
-import { Email, Name, Password } from 'src/types/user-type';
+import { Email, Name, Password } from '@/types/user-type';
 
 export class CreateUserDto {
   @Transform(({ value }) => value.trim() as Name)

@@ -1,5 +1,5 @@
 import { ICommand } from '@nestjs/cqrs';
-import { Email, Name, Password } from 'src/types/user-type';
+import { Email, Name, Password } from '@/types/user-type';
 
 export class CreateUserCommand implements ICommand {
   constructor(
