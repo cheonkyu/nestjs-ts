@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Logger, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
@@ -10,6 +10,8 @@ import { addTransactionalDataSource } from 'typeorm-transactional';
 import { DataSource } from 'typeorm';
 import * as winston from 'winston';
 import { WinstonModule, utilities } from 'nest-winston';
+import { APP_FILTER } from '@nestjs/core';
+import { HttpExceptionFilter } from './http-exception.filter';
 
 @Module({
   imports: [
@@ -54,6 +56,14 @@ import { WinstonModule, utilities } from 'nest-winston';
     }),
     UsersModule,
     EmailModule,
+  ],
+  providers: [
+    // HttpExceptionFilter 필터에 Logger 의존성 주입
+    Logger,
+    {
+      provide: APP_FILTER,
+      useClass: HttpExceptionFilter,
+    },
   ],
 })
 export class AppModule {}
