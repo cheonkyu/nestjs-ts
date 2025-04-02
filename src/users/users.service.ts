@@ -1,6 +1,8 @@
 import {
   Inject,
   Injectable,
+  Logger,
+  LoggerService,
   NotFoundException,
   UnprocessableEntityException,
 } from '@nestjs/common';
@@ -17,11 +19,12 @@ import { AuthService } from 'src/auth/auth.service';
 @Injectable()
 export class UsersService {
   constructor(
-    private emailService: EmailService,
-    private authService: AuthService,
+    private readonly emailService: EmailService,
+    private readonly authService: AuthService,
     // @InjectRepository(UserEntity)
     @Inject('USER_REPOSITORY_PROXY')
-    private usersRepository: Repository<UserEntity>,
+    private readonly usersRepository: Repository<UserEntity>,
+    @Inject(Logger) private readonly logger: LoggerService,
   ) {}
 
   @Transactional()
@@ -59,6 +62,7 @@ export class UsersService {
     user.email = email;
     user.password = password;
     user.signupVerifyToken = signupVerifyToken;
+    this.logger.log(user);
     return this.usersRepository.save(user);
   }
 
@@ -81,6 +85,7 @@ export class UsersService {
     if (!user) {
       throw new NotFoundException('유저가 존재하지 않습니다.');
     }
+    this.logger.log(user);
     return this.authService.login({
       id: user.id,
       name: user.name,
@@ -96,7 +101,9 @@ export class UsersService {
     if (!user) {
       throw new NotFoundException('유저가 존재하지 않습니다.');
     }
-
+    this.logger.log({
+      message: `로그인 ${user}`,
+    });
     return this.authService.login({
       id: user.id,
       name: user.name,
@@ -114,6 +121,7 @@ export class UsersService {
     }
     user.count = (Number(user.count ?? 0) + 1) as Count;
     await this.usersRepository.save(user);
+    this.logger.error(user);
     return user;
   }
 }

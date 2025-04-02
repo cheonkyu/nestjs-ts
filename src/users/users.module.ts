@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Logger, Module } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UsersController } from './users.controller';
 import { EmailModule } from 'src/email/email.module';
@@ -16,6 +16,7 @@ import { createRepositoryProxy } from 'src/helper/typeorm/RepositoryProxy';
   providers: [
     UsersService,
     AuthService,
+    Logger,
     // TODO: Dynamic 모듈 활용 주입
     // https://github.com/nestjs/typeorm/blob/master/lib/typeorm.module.ts
     {

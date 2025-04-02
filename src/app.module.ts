@@ -2,14 +2,14 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
-import { EmailService } from './email/email.service';
 import { EmailModule } from './email/email.module';
 import authConfig from './config/authConfig';
 import emailConfig from './config/emailConfig';
 import { validationSchema } from './config/validationSchema';
 import { addTransactionalDataSource } from 'typeorm-transactional';
 import { DataSource } from 'typeorm';
-import { AuthService } from './auth/auth.service';
+import * as winston from 'winston';
+import { WinstonModule, utilities } from 'nest-winston';
 
 @Module({
   imports: [
@@ -41,9 +41,19 @@ import { AuthService } from './auth/auth.service';
         return addTransactionalDataSource(new DataSource(options));
       },
     }),
+    WinstonModule.forRoot({
+      transports: [
+        new winston.transports.Console({
+          level: process.env.NODE_ENV === 'production' ? 'info' : 'silly',
+          format: winston.format.combine(
+            winston.format.timestamp(),
+            utilities.format.nestLike('cheonkyu', { prettyPrint: true }),
+          ),
+        }),
+      ],
+    }),
     UsersModule,
     EmailModule,
   ],
-  providers: [EmailService, AuthService],
 })
 export class AppModule {}
