@@ -5,7 +5,11 @@ import {
   initializeTransactionalContext,
   StorageDriver,
 } from 'typeorm-transactional';
-import { utilities, WINSTON_MODULE_NEST_PROVIDER, WinstonModule } from 'nest-winston';
+import {
+  utilities,
+  WINSTON_MODULE_NEST_PROVIDER,
+  WinstonModule,
+} from 'nest-winston';
 import * as winston from 'winston';
 
 async function bootstrap() {
