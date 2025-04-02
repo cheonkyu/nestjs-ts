@@ -8,11 +8,14 @@ import {
   Delete,
   HttpCode,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserLoginDto } from './dto/user-login.dto';
 import { VerifyEmailDto } from './dto/verify-email.dto';
+import { Id, Token } from 'src/types/user-type';
+import { AuthGuard } from 'src/auth.guard';
 
 @Controller('users')
 export class UsersController {
@@ -26,17 +29,18 @@ export class UsersController {
 
   @Get('/email-verify')
   async verifyEmail(@Query() dto: VerifyEmailDto) {
-    return this.usersService.verifyEmail(dto);
+    return this.usersService.verifyEmail(dto.signupVerifyToken);
   }
 
-  @Get('/login')
+  @Post('/login')
   async login(@Body() dto: UserLoginDto) {
     const { email, password } = dto;
     return this.usersService.login(email, password);
   }
 
+  @UseGuards(AuthGuard)
   @Get(':id')
-  async findOne(@Param('id') id: string) {
-    return this.usersService.findOne(+id);
+  async getUserInfo(@Param('id') userId: string) {
+    return this.usersService.getUserInfo(userId as Id);
   }
 }
